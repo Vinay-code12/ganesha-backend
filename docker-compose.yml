@@ -1,0 +1,66 @@
+version: '3.9'
+
+services:
+  # ── MongoDB ────────────────────────────────────────────────────────────────
+  mongo:
+    image: mongo:7
+    container_name: restaurant-saas-mongo
+    restart: unless-stopped
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+    environment:
+      MONGO_INITDB_DATABASE: restaurant-saas
+    networks:
+      - saas-net
+
+  # ── Backend API ────────────────────────────────────────────────────────────
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: restaurant-saas-backend
+    restart: unless-stopped
+    ports:
+      - '5000:5000'
+    environment:
+      PORT: 5000
+      MONGODB_URI: mongodb://mongo:27017/restaurant-saas
+      JWT_SECRET: your_super_secret_jwt_key_change_in_production
+      JWT_REFRESH_SECRET: your_super_refresh_secret_change_in_production
+      CLIENT_URL: http://localhost:5173
+      NODE_ENV: development
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend/src:/app/src
+      - /app/node_modules
+    networks:
+      - saas-net
+
+  # ── Frontend ───────────────────────────────────────────────────────────────
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    container_name: restaurant-saas-frontend
+    restart: unless-stopped
+    ports:
+      - '5173:5173'
+    environment:
+      VITE_API_URL: http://localhost:5000
+    depends_on:
+      - backend
+    volumes:
+      - ./frontend/src:/app/src
+      - /app/node_modules
+    networks:
+      - saas-net
+
+volumes:
+  mongo_data:
+
+networks:
+  saas-net:
+    driver: bridge

@@ -1,0 +1,17 @@
+{
+  "name": "restaurant-saas",
+  "version": "1.0.0",
+  "description": "A full-stack, multi-tenant restaurant management SaaS with real-time features.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently --names 'BACKEND,FRONTEND' --prefix-colors 'cyan,magenta' 'npm run dev --prefix backend' 'npm run dev --prefix frontend'",
+    "seed": "npm run seed --prefix backend",
+    "install:all": "npm install --prefix backend && npm install --prefix frontend"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}
