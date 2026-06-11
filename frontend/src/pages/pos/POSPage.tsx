@@ -90,11 +90,11 @@ export default function POSPage() {
   const { data: menuData, isLoading: menuLoading } = useFullMenu();
   const { data: todayData } = useTodayOrders();
 
-  const menu = menuData?.data || [];
+  const menu = menuData || [];
 
   // Populate live orders from today's data
   useEffect(() => {
-    const orders: Order[] = todayData?.data?.orders || [];
+    const orders: Order[] = todayData?.orders || [];
     setLiveOrders(orders.filter(o => !['delivered','cancelled'].includes(o.status)));
   }, [todayData]);
 
@@ -146,7 +146,7 @@ export default function POSPage() {
   const cartCount = cart.reduce((sum, c) => sum + c.quantity, 0);
 
   // All items flat
-  const allItems: MenuItem[] = menu.flatMap((c: any) => c.items || []).filter((i: MenuItem) => i.isAvailable);
+  const allItems: MenuItem[] = menu.flatMap((c: any) => c.items || []).filter((i: MenuItem) => i.availability);
   const displayedItems = activeCategory === 'all' ? allItems : allItems.filter((i: MenuItem) => {
     const catId = (i.categoryId as any)?._id || i.categoryId;
     return catId === activeCategory;

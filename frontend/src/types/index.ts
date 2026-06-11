@@ -55,8 +55,14 @@ export interface MenuItem {
   image?: string;
   price: number;
   availability: boolean;
+  isAvailable?: boolean;
   preparationTime: number;
   tags: string[];
+  isVegetarian?: boolean;
+  isVegan?: boolean;
+  isGlutenFree?: boolean;
+  isFeatured?: boolean;
+  calories?: number;
 }
 
 export interface OrderItem {
@@ -95,12 +101,15 @@ export interface Booking {
   customerName: string;
   customerEmail: string;
   customerPhone: string;
+  guestName?: string;
+  guestPhone?: string;
   bookingDate: string;
   timeSlot: string;
   guests: number;
   tableNumber?: string;
   status: BookingStatus;
   specialRequests?: string;
+  notes?: string;
   createdBy: string;
   auditTrail: AuditEntry[];
   createdAt: string;
@@ -116,6 +125,7 @@ export interface Customer {
   totalSpent: number;
   lastVisit?: string;
   notes?: string;
+  createdAt?: string;
 }
 
 export interface Staff {
