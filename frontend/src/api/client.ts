@@ -1,8 +1,8 @@
 import axios, { AxiosError } from 'axios';
 import { useAuthStore } from '../context/authStore';
 
-const BASE_URL = 'http://ec2-13-48-10-29.eu-north-1.compute.amazonaws.com:5000/api/v1';
-//const BASE_URL = `${import.meta.env.VITE_API_URL}/api/v1`;
+//const BASE_URL = 'http://ec2-13-48-10-29.eu-north-1.compute.amazonaws.com:5000/api/v1';
+const BASE_URL = `${import.meta.env.VITE_API_URL}/api/v1`;
 
 export const apiClient = axios.create({
   baseURL: BASE_URL,
