@@ -193,18 +193,88 @@ CLIENT_URL=http://localhost:5173
 NODE_ENV=development
 ```
 
-https://github.com/Vinay-code12/ganesha-backend.git
+---
 
+## How to Push Changes to GitHub
 
-echo "# ganesha-backend" >> README.md
-git init
-git add README.md
-git commit -m "first commit"
-git branch -M main
+This project is hosted at: https://github.com/Vinay-code12/ganesha-backend.git
+
+### First-Time Setup (connect local project to GitHub)
+
+If you are setting up a fresh clone or new machine:
+
+```bash
 git remote add origin https://github.com/Vinay-code12/ganesha-backend.git
-git push -u origin main
-
-…or push an existing repository from the command line
-git remote add origin https://github.com/Vinay-code12/ganesha-backend.git
 git branch -M main
 git push -u origin main
+```
+
+---
+
+### Pushing Changes (day-to-day workflow)
+
+Every time you make changes to any file (frontend or backend), follow these steps:
+
+#### Step 1 — Check what has changed
+```bash
+git status
+```
+This shows which files have been modified, added, or deleted.
+
+#### Step 2 — Stage the files you want to push
+
+To stage a **specific file**:
+```bash
+git add frontend/src/api/client.ts
+```
+
+To stage **all changed files** at once:
+```bash
+git add .
+```
+
+#### Step 3 — Commit with a message describing what you changed
+```bash
+git commit -m "describe what you changed here"
+```
+
+For example:
+```bash
+git commit -m "fix: update API base URL to DuckDNS domain"
+```
+
+#### Step 4 — Push to GitHub
+```bash
+git push origin main
+```
+
+---
+
+### Common Examples
+
+| What you changed | Command to stage |
+|------------------|-----------------|
+| API client URL | `git add frontend/src/api/client.ts` |
+| Frontend types | `git add frontend/src/types/index.ts` |
+| Backend config | `git add backend/src/config/index.ts` |
+| Everything at once | `git add .` |
+
+---
+
+### Full Example (push a frontend change)
+
+```bash
+# 1. Check status
+git status
+
+# 2. Stage the changed file
+git add frontend/src/api/client.ts
+
+# 3. Commit
+git commit -m "fix: update backend URL to production domain"
+
+# 4. Push
+git push origin main
+```
+
+> **Note:** After every `git push origin main`, AWS Amplify automatically detects the push and starts a new build. You can watch the progress in the Amplify Console.
